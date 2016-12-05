@@ -138,6 +138,97 @@ RCT_REMAP_METHOD(init,
     [FH initWithSuccess:success AndFailure:failure];
 }
 
+RCT_REMAP_METHOD(auth,
+                 authPolicy: (NSString*) authPolicy
+                 username: (NSString*) username
+                 password: (NSString*) password
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSLog(@"auth call with promise %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    
+    // Call a cloud side function when init finishes
+    void (^success)(FHResponse *)=^(FHResponse * res) {
+        NSLog(@"auth call succeded check status");
+        NSDictionary *resData = res.parsedResponse;
+        
+        NSLog(@"parsed response %@ type=%@",res.parsedResponse,[res.parsedResponse class]);
+        //if ([[[res parsedResponse] valueForKey:@"status"] isEqualToString:@"error"]) {
+        if ([res responseStatusCode] != 200) {
+            NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [res parsedResponse]];
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify credentials and try again", nil)
+                                       };
+            NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
+                                                 code:-1
+                                             userInfo:userInfo];
+            reject(@"auth_call_failed", errorMessage, error);
+            
+        } else {
+            NSLog(@"auth call authentication succeded");
+            resolve(resData);
+        }
+    };
+    
+    void (^failure)(id)=^(FHResponse * res){
+        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [res.error localizedDescription]];
+        NSLog(@"auth call failed, so reject. Response = %@", errorMessage);
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify fhconfig.plist file", nil)
+                                   };
+        NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
+                                             code:-1
+                                         userInfo:userInfo];
+        reject(@"auth_call_failed", errorMessage, error);
+    };
+    
+    @try {
+        
+        if (!authPolicy || !username || !password) {
+            NSString *errorMessage = [NSString stringWithFormat:@"Error authPolicy, username, password cannot empty"];
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey: NSLocalizedString(@"Wrong parameters.", nil)
+                                       };
+            NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
+                                                 code:-1
+                                             userInfo:userInfo];
+            reject(@"auth_call_failed", errorMessage, error);
+            return;
+        }
+        
+        
+        NSLog(@">>>>>>> %@ %@ %@", authPolicy, username, password);
+        
+        
+        FHAuthRequest* authRequest = [FH buildAuthRequest];
+        [authRequest authWithPolicyId:authPolicy UserId:username Password:password];
+        
+        [authRequest execAsyncWithSuccess:success AndFailure:failure];
+    }
+    @catch ( NSException *e ) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [e reason]];
+        NSLog(@"cloud call exception. Response = %@", errorMessage);
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)
+                                   };
+        NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
+                                             code:-1
+                                         userInfo:userInfo];
+        reject(@"cloud_call_failed", errorMessage, error);
+        
+    }
+    @finally {
+        NSLog(@"IN FINALLY!!!!!!!!! ");
+    }
+}
+
+
 RCT_REMAP_METHOD(cloud,
                  options: (NSDictionary *) options
                  resolver:(RCTPromiseResolveBlock)resolve
