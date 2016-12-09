@@ -1,5 +1,10 @@
 {
   "name": "rct-fh",
   "version": "0.0.2",
-  "keywords": "react-native"
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/cvicens/RCTFH.git"
+  },
+  "homepage": "https://gitlab.com/cvicens/RCTFH",
+  "keywords": ["react-native", "feedhenry"]
 }
