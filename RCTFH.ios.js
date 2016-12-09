@@ -4,15 +4,21 @@
  */
 'use strict';
 
-var NativeRCTFH = require('NativeModules').RCTFH;
+var NativeRCTFH = require('NativeModules').FH;
 
 /**
  * High-level docs for the RCTFH iOS API can be written here.
  */
 
 var RCTFH = {
-  test: function() {
-    NativeRCTFH.test();
+  init: async function() {
+    return NativeRCTFH.init();
+  },
+  auth: async function(authPolicy, username, password) { 
+    return NativeRCTFH.auth(authPolicy, username, password);
+  },
+  cloud: async function(options) { 
+    return NativeRCTFH.cloud(options);
   }
 };
 
