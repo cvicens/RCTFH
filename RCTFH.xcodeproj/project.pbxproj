@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		13BE3DEE1AC21097009241FE /* RCTFH.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BE3DED1AC21097009241FE /* RCTFH.m */; };
-		E99B43569AAD71A1E8C2A4F7 /* Pods_RCTFH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A388FAD784FD55B45E899F /* Pods_RCTFH.framework */; };
+		5F586F951E0D3EBD00BD401D /* FH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F941E0D3EBD00BD401D /* FH.framework */; };
+		5F586F971E0D3F2900BD401D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F961E0D3F2900BD401D /* libxml2.tbd */; };
+		5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */; };
+		5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */; };
+		5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */; };
+		5F586F9F1E0D3F5400BD401D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9E1E0D3F5400BD401D /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,12 +29,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		11A388FAD784FD55B45E899F /* Pods_RCTFH.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RCTFH.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		134814201AA4EA6300B7C361 /* libRCTFH.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTFH.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BE3DEC1AC21097009241FE /* RCTFH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTFH.h; sourceTree = "<group>"; };
 		13BE3DED1AC21097009241FE /* RCTFH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTFH.m; sourceTree = "<group>"; };
-		5E994D22714F46D171BDF2B6 /* Pods-RCTFH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCTFH.release.xcconfig"; path = "Pods/Target Support Files/Pods-RCTFH/Pods-RCTFH.release.xcconfig"; sourceTree = "<group>"; };
-		60905CDCB4DBC02BD8BDCC34 /* Pods-RCTFH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCTFH.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RCTFH/Pods-RCTFH.debug.xcconfig"; sourceTree = "<group>"; };
+		5F586F941E0D3EBD00BD401D /* FH.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FH.framework; sourceTree = "<group>"; };
+		5F586F961E0D3F2900BD401D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5F586F9E1E0D3F5400BD401D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +45,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99B43569AAD71A1E8C2A4F7 /* Pods_RCTFH.framework in Frameworks */,
+				5F586F9F1E0D3F5400BD401D /* libz.tbd in Frameworks */,
+				5F586F971E0D3F2900BD401D /* libxml2.tbd in Frameworks */,
+				5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */,
+				5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */,
+				5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */,
+				5F586F951E0D3EBD00BD401D /* FH.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,24 +71,19 @@
 				13BE3DEC1AC21097009241FE /* RCTFH.h */,
 				13BE3DED1AC21097009241FE /* RCTFH.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				775C2220A6783C8BE1FF2FB7 /* Pods */,
 				EDCD6C22AC6282783BDDA131 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		775C2220A6783C8BE1FF2FB7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				60905CDCB4DBC02BD8BDCC34 /* Pods-RCTFH.debug.xcconfig */,
-				5E994D22714F46D171BDF2B6 /* Pods-RCTFH.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		EDCD6C22AC6282783BDDA131 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				11A388FAD784FD55B45E899F /* Pods_RCTFH.framework */,
+				5F586F961E0D3F2900BD401D /* libxml2.tbd */,
+				5F586F9E1E0D3F5400BD401D /* libz.tbd */,
+				5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */,
+				5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */,
+				5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */,
+				5F586F941E0D3EBD00BD401D /* FH.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,11 +95,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RCTFH" */;
 			buildPhases = (
-				A43CC6178257A71F9E0643C0 /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
-				AD69CF4EF304B851E5F6D517 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,39 +138,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A43CC6178257A71F9E0643C0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		AD69CF4EF304B851E5F6D517 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RCTFH/Pods-RCTFH-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -214,6 +187,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-Objective-C";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -247,6 +221,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-Objective-C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -254,8 +229,11 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60905CDCB4DBC02BD8BDCC34 /* Pods-RCTFH.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -263,7 +241,6 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../Libraries/RCTFH/Pods/FH/fh-ios-sdk/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -274,8 +251,11 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E994D22714F46D171BDF2B6 /* Pods-RCTFH.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -283,7 +263,6 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../node_modules/react-native/React",
 					"$(SRCROOT)/../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../Libraries/RCTFH/Pods/FH/fh-ios-sdk",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
