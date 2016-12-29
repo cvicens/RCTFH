@@ -9,5 +9,8 @@
   "keywords": [
     "react-native",
     "feedhenry"
-  ]
+  ],
+  "scripts": {
+    "postinstall": "./update-links.sh"
+  }
 }
