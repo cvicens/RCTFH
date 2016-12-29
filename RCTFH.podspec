@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
 
   s.dependency "FH", "~> 3.1.1"
-  s.dependency "React"
+  #s.dependency "React"
 
 end
