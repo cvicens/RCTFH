@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		13BE3DEE1AC21097009241FE /* RCTFH.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BE3DED1AC21097009241FE /* RCTFH.m */; };
 		5F586F951E0D3EBD00BD401D /* FH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F941E0D3EBD00BD401D /* FH.framework */; };
-		5F586F971E0D3F2900BD401D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F961E0D3F2900BD401D /* libxml2.tbd */; };
 		5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */; };
 		5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */; };
 		5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */; };
-		5F586F9F1E0D3F5400BD401D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9E1E0D3F5400BD401D /* libz.tbd */; };
+		5F9702F91E1597F00006FDEA /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9702F71E1597F00006FDEA /* libz.1.dylib */; };
+		5F9702FA1E1597F00006FDEA /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9702F81E1597F00006FDEA /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,11 +33,11 @@
 		13BE3DEC1AC21097009241FE /* RCTFH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTFH.h; sourceTree = "<group>"; };
 		13BE3DED1AC21097009241FE /* RCTFH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTFH.m; sourceTree = "<group>"; };
 		5F586F941E0D3EBD00BD401D /* FH.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FH.framework; sourceTree = "<group>"; };
-		5F586F961E0D3F2900BD401D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		5F586F9E1E0D3F5400BD401D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5F9702F71E1597F00006FDEA /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
+		5F9702F81E1597F00006FDEA /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,8 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F586F9F1E0D3F5400BD401D /* libz.tbd in Frameworks */,
-				5F586F971E0D3F2900BD401D /* libxml2.tbd in Frameworks */,
+				5F9702F91E1597F00006FDEA /* libz.1.dylib in Frameworks */,
+				5F9702FA1E1597F00006FDEA /* libxml2.2.dylib in Frameworks */,
 				5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */,
 				5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */,
 				5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */,
@@ -78,8 +78,8 @@
 		EDCD6C22AC6282783BDDA131 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5F586F961E0D3F2900BD401D /* libxml2.tbd */,
-				5F586F9E1E0D3F5400BD401D /* libz.tbd */,
+				5F9702F71E1597F00006FDEA /* libz.1.dylib */,
+				5F9702F81E1597F00006FDEA /* libxml2.2.dylib */,
 				5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */,
 				5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */,
 				5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */,
