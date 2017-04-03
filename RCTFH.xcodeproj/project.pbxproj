@@ -12,8 +12,6 @@
 		5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */; };
 		5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */; };
 		5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */; };
-		5F9702F91E1597F00006FDEA /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9702F71E1597F00006FDEA /* libz.1.dylib */; };
-		5F9702FA1E1597F00006FDEA /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9702F81E1597F00006FDEA /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,8 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F9702F91E1597F00006FDEA /* libz.1.dylib in Frameworks */,
-				5F9702FA1E1597F00006FDEA /* libxml2.2.dylib in Frameworks */,
 				5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */,
 				5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */,
 				5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */,
