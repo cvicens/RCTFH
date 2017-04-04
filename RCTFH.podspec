@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RCTFH"
-  s.author       = { "Carlos Vicens" => "cvicens@redhat.com" }
+  s.author       = { "Carlos Vicens" => "cvicensa@redhat.com" }
 
   s.version      = "0.1.0"
   s.summary      = "Native..."
