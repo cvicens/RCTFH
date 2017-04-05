@@ -1,16 +1,23 @@
-REACT Native Feedhenry Wrapper (unofficial)
+React Native Feedhenry Wrapper (unofficial)
 =============
-**React Native Wrapper around Feedhenry SDK** is built to provide a RN App access to both **iOS** and in the future also for **Android** to the Feedhenry SDK.
+**React Native Wrapper around Feedhenry SDK** is built to provide a RN App access to both **iOS** and in the future also for **Android** to the Feedhenry SDK.  You'll find all the information related to documentation of the Objective-C SDK this module is based on [here](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-ios-objective-c).
 
-## Why a native bridge? Why not use just JavaScript?
+## Why a native bridge? Why not just JavaScript?
 As of today plain JS SDK is browser driven and hence not usable in React Native.
 
+## Is there a React Native template?
+Indeed, you can find it [here](https://github.com/cvicens/quickstart-react-native).
 
-## Content
-  * [Installation](#installation-and-linking-libraries)
+## Contents
+  1. Create your React Native Project
+  2. Add 'rct-fh' dependency
+  3. Let's link the new module
+  4. Install RHMAP iOS framwork using cocoapods
+  5. Create the RHMAP iOS configuration file
+  6. Using the module
 
 ## 1. Create your React Native Project
-Do is as usual as in ``react-native init Test001 ``
+Do it as usual, for example: ``$ react-native init Test001 ``
 
 Next an example output of the previous command.
 
@@ -164,8 +171,102 @@ Once inside the XCode workspace create a new file under the project node in the 
 3. It's time to copy the contents of the sample file above, to do so, right click the file and select 'Open As'→'Source Code'
 4. Paste the contents and edit the file to match your Cloud App where is running the sample 'hello' end point.
 
-## 6. Test the module
+## 6. Using the module
 Below you'll find an example of ``index.ios.js`` that uses our module ``rct-fh``. Please pay attention to the class name exported (Test001 in our example) and also to the name of the app registered in the last line (again Test001 in our example). For simplicity make the name of both the class and the component registered to be the name of the React Native application we used in **step #1** where we run ``react-native init <App Name>``.
+
+### Importing the module
+To import the module, just require 'rct-fh'. 
+
+```
+var RCTFH = require('rct-fh');
+```
+The excerpt below shows how we're defining an object exposing native module methods asynchronously. See [index.js](./index.js) for more details. 
+
+```
+var RCTFH = {
+  init: async function() {
+    return await FH.init();
+  },
+  auth: async function(authPolicy, username, password) { 
+    return await FH.auth(authPolicy, username, password);
+  },
+  cloud: async function(options) { 
+    return await FH.cloud(options);
+  }
+};
+```
+
+### Init the module
+The function to initialize the module is: ``RCTFH.init()``. This function is asynchronous and as such we could use the keyword ``await`` to asynchronously await for the init process to finish (in the same fashion as ``then`` in a Promise). As you can see below, once the init process has ``resolved`` properly we get the ``result`` object. On the other hand if there is a problem while initializing the module the init process will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(init, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+
+```
+try {
+	this.setState({message: 'Initializing...'});
+	const result = await RCTFH.init();
+	console.log('init result', result);
+	this.setState({message: 'Ready'});
+	
+	if (result === 'SUCCESS') {
+	  console.log('SUCCESS');
+	  this.setState({init: true});
+	} else {
+	  console.error('Error');
+	}
+} catch (e) {
+	console.error('Exception', e);
+} 
+```
+
+### Authentication
+Before we can use this function we need to have defined an authentication policy in RHMAP Studio. For more information about authentication policies please go to [RHMAP Auth Policies](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/product_features/product-features-administration-and-management#auth-policies).
+
+The function to trigger an authentication policy is: ``RCTFH.auth()``. This function is also asynchronous and as such we could use the keyword ``await`` to asynchronously await for the authentication process to finish. If the policy is invoked properly we will get a ``result`` object, if the credentials provided are correct the object will include a ``sessionToken`` attribute. On the other hand if there is a problem the function will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(auth, authPolicy, username, password, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+
+```
+try {
+	const result = await RCTFH.auth(authPolicy, username, password);
+	if (typeof result.sessionToken !== 'undefined') {
+	  console.log('AUTHENTICATED');
+	} else {
+	  console.log('UNAUTHENTICATED');
+	}
+} catch (e) {
+	console.error('ERROR', e);
+}
+```
+
+### REST call, 'cloud' API
+The function to call a RESTful endpoint exposed in a FeedHendry Cloud App is: ``RCTFH.cloud(options)``. Again, this function is asynchronous and as such we could use the keyword ``await`` to asynchronously await for the cloud call process to finish. In the same fashion as the init call, once the cloud call has ``resolved`` properly we get the ``result`` object and if there is a problem the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(cloud, options, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+
+As you can see, we are using a set options to use this function:
+
+* ``path`` cloud app endpoint
+* ``method`` HTTP method; GET, POST, etc.
+* ``contentType`` usually *application/json*
+* ``data `` object we want to use along with the HTTP method, in the case of the GET method a flat object is turned into query parameters
+* ``timeout `` HTTP timeout
+
+```
+try {
+  const result = await RCTFH.cloud({
+    "path": "/hello", //only the path part of the url, the host will be added automatically
+    "method": "GET", //all other HTTP methods are supported as well. For example, HEAD, DELETE, OPTIONS
+    "contentType": "application/json",
+    "data": { "hello": this.state.userInput}, //data to send to the server
+    "timeout": 25000 // timeout value specified in milliseconds. Default: 60000 (60s)
+  });
+
+  if (result && result.msg)
+    this.setState({message: result.msg});
+  else
+    this.setState({message: JSON.stringify(result)});
+} catch (e) {
+  this.setState({message: 'Error' + e});
+}
+```
+
+
+**# index.ios.js complete example code**
 
 ```
 import React, { Component } from 'react';
@@ -194,7 +295,7 @@ export default class Test001 extends Component {
   }
 
   componentDidMount () {
-    // After the component mounts we refresh to request data
+    // Let's init RHMAP module after the component mounts
     this.init();
   }
 

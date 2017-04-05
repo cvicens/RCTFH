@@ -82,7 +82,7 @@ RCT_EXPORT_METHOD(  cloud: (NSDictionary *) options
             [data addEntriesFromDictionary: (NSDictionary*)[options valueForKey:@"data"]];
         }
         
-        NSLog(@">>>>>>> %@ %@ %@ %@ %@", path, method, contentType, headers, data);
+        //NSLog(@">>>>>>> %@ %@ %@ %@ %@", path, method, contentType, headers, data);
         
         
         FHCloudRequest * action = (FHCloudRequest *) [FH buildCloudRequest:path
@@ -100,7 +100,7 @@ RCT_EXPORT_METHOD(  cloud: (NSDictionary *) options
         errorCallback(@[errorMessage]);
     }
     @finally {
-        NSLog(@"IN FINALLY!!!!!!!!! ");
+        NSLog(@"finally area reached");
     }
     
 }
@@ -124,9 +124,10 @@ RCT_REMAP_METHOD(init,
         NSString *errorMessage = [NSString stringWithFormat:@"ERROR: %@", [res.error localizedDescription]];
         NSLog(@"Initialisation failed. Response = %@", errorMessage);
         NSDictionary *userInfo = @{
-                                   NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
-                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)
+                                   NSLocalizedDescriptionKey: NSLocalizedString(@"Init operation was unsuccessful.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString( [res.error localizedDescription], nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify fhconfig.plist", nil),
+                                   @"FHParsedResponse": [res parsedResponse]
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
                                              code:-1
@@ -158,7 +159,7 @@ RCT_REMAP_METHOD(auth,
             NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [res parsedResponse]];
             NSDictionary *userInfo = @{
                                        NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Authentication failed.", nil),
                                        NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify credentials and try again", nil)
                                        };
             NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
@@ -177,7 +178,7 @@ RCT_REMAP_METHOD(auth,
         NSLog(@"auth call failed, so reject. Response = %@", errorMessage);
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString([res.error localizedDescription], nil),
                                    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify fhconfig.plist file", nil)
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
@@ -201,7 +202,7 @@ RCT_REMAP_METHOD(auth,
         }
         
         
-        NSLog(@">>>>>>> %@ %@ %@", authPolicy, username, password);
+        NSLog(@"Policy: %@ username: %@", authPolicy, username);
         
         
         FHAuthRequest* authRequest = [FH buildAuthRequest];
@@ -214,7 +215,7 @@ RCT_REMAP_METHOD(auth,
         NSLog(@"cloud call exception. Response = %@", errorMessage);
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString([e reason], nil),
                                    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
@@ -224,7 +225,7 @@ RCT_REMAP_METHOD(auth,
         
     }
     @finally {
-        NSLog(@"IN FINALLY!!!!!!!!! ");
+        NSLog(@"finally area reached");
     }
 }
 
@@ -239,19 +240,19 @@ RCT_REMAP_METHOD(cloud,
     
     // Call a cloud side function when init finishes
     void (^success)(FHResponse *)=^(FHResponse * res) {
-        NSLog(@"cloud call succeded, let's call resolve");
+        NSLog(@"cloud call succeded");
         NSDictionary *resData = res.parsedResponse;
         
         resolve(resData);
     };
     
     void (^failure)(id)=^(FHResponse * res){
-        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [res.error localizedDescription]];
+        NSString *errorMessage = [NSString stringWithFormat:@"%@", [res.error localizedDescription]];
         NSLog(@"cloud call failed, so reject. Response = %@", errorMessage);
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
-                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString([res.error localizedDescription], nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please confirm API endpoints and parameters", nil)
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
                                              code:-1
@@ -283,7 +284,7 @@ RCT_REMAP_METHOD(cloud,
             [data addEntriesFromDictionary: (NSDictionary*)[options valueForKey:@"data"]];
         }
         
-        NSLog(@">>>>>>> %@ %@ %@ %@ %@", path, method, contentType, headers, data);
+        //NSLog(@"path: %@ method: %@ contentType: %@ headers: %@ data: %@", path, method, contentType, headers, data);
         
         
         FHCloudRequest * action = (FHCloudRequest *) [FH buildCloudRequest:path
@@ -296,11 +297,11 @@ RCT_REMAP_METHOD(cloud,
         [action execAsyncWithSuccess: success AndFailure: failure];
     }
     @catch ( NSException *e ) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [e reason]];
+        NSString *errorMessage = [NSString stringWithFormat:@"", [e reason]];
         NSLog(@"cloud call exception. Response = %@", errorMessage);
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
-                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation failed.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString([e reason], nil),
                                    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
@@ -310,7 +311,7 @@ RCT_REMAP_METHOD(cloud,
 
     }
     @finally {
-        NSLog(@"IN FINALLY!!!!!!!!! ");
+        NSLog(@"finally area reached");
     }
 }
 
