@@ -7,12 +7,6 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(test)
-{
-    // Your implementation here
-    NSLog(@"HI from FH!");
-}
-
 // init
 RCT_EXPORT_METHOD(init:(RCTResponseSenderBlock)successCallback
                   callback:(RCTResponseSenderBlock)errorCallback) {
