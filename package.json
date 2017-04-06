@@ -3,14 +3,18 @@
   "version": "0.0.11",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/cvicens/RCTFH.git"
+    "url": "git+https://github.com/cvicens/RCTFH.git"
   },
-  "homepage": "https://gitlab.com/cvicens/RCTFH",
+  "homepage": "https://github.com/cvicens/RCTFH",
   "keywords": [
     "react-native",
-    "feedhenry"
+    "feedhenry",
+    "RHMAP",
+    "Red Hat Mobile"
   ],
+  "author": "Carlos Vicens",
   "scripts": {
     "postinstall": "./update-links.sh"
-  }
+  },
+  "license": "mit"
 }
