@@ -120,8 +120,7 @@ RCT_REMAP_METHOD(init,
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Init operation was unsuccessful.", nil),
                                    NSLocalizedFailureReasonErrorKey: NSLocalizedString( [res.error localizedDescription], nil),
-                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify fhconfig.plist", nil),
-                                   @"FHParsedResponse": [res parsedResponse]
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify fhconfig.plist", nil)
                                    };
         NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
                                              code:-1
