@@ -19,8 +19,6 @@ import com.feedhenry.sdk.FHResponse;
 import com.feedhenry.sdk.api.FHAuthRequest;
 import com.feedhenry.sdk.api.FHCloudRequest;
 
-import android.widget.Toast;
-
 import org.json.fh.JSONException;
 import org.json.fh.JSONObject;
 
@@ -47,8 +45,7 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void init(final Promise promise){
-        Log.i(FH_INIT_TAG, RCTFHModule.class.getCanonicalName());
-        Toast.makeText(getReactApplicationContext(), "Hi there " + FH.class.getCanonicalName(), Toast.LENGTH_LONG).show();
+        Log.d(FH_INIT_TAG, RCTFHModule.class.getCanonicalName());
 
         try {
             FH.init(this.getReactApplicationContext(), new FHActCallback() {
