@@ -95,7 +95,7 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
 
                     } else {
                         Log.d(FH_AUTH_TAG, "auth call authentication succeeded");
-                        promise.resolve(MapUtil.toJavaOnlyMap(resData));
+                        promise.resolve(MapUtil.toWritableMap(resData));
                     }
                 }
 
@@ -166,8 +166,7 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
                 @Override
                 public void success(FHResponse res) {
                     //promise.resolve(res.getRawResponse());
-                    ReadableMap rm = MapUtil.toJavaOnlyMap(res.getJson());
-                    promise.resolve(rm);
+                    promise.resolve(MapUtil.toWritableObject(res));
                 }
 
                 @Override

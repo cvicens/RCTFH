@@ -11,14 +11,12 @@ import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.feedhenry.sdk.FHResponse;
 
 import org.json.fh.JSONException;
-import org.json.fh.JSONObject;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -58,8 +56,19 @@ public class MapUtil {
         return result;
     }
 
-    public static WritableMap toJavaOnlyMap(org.json.fh.JSONObject jsonObject) throws JSONException {
-        WritableMap result = Arguments.createMap();
+    public static Object toWritableObject(FHResponse res) throws JSONException {
+        Object result = null;
+        if (res.getJson() != null) {
+            return toWritableMap(res.getJson());
+        } else if (res.getArray() != null) {
+            return toWritableArray(res.getArray());
+        }
+
+        return null;
+    }
+
+    public static WritableMap toWritableMap(org.json.fh.JSONObject jsonObject) throws JSONException {
+        WritableMap   result = Arguments.createMap();
 
         Iterator<String> iterator = jsonObject.keys();
 
@@ -70,19 +79,56 @@ public class MapUtil {
             if (value != null) {
                 if (value instanceof Boolean) {
                     result.putBoolean(key, (Boolean) value);
-                } else if (value instanceof Number) {
+                } else if (value instanceof Integer) {
+                    result.putInt(key, (Integer) value);
+                } else if (value instanceof Double) {
+                    result.putDouble(key, (Double) value);
+                } else if (value instanceof Float) {
                     result.putDouble(key, (Double) value);
                 } else if (value instanceof String) {
                     result.putString(key, (String) value);
                 } else if (value instanceof org.json.fh.JSONObject) {
-                    result.putMap(key, toJavaOnlyMap((org.json.fh.JSONObject) value));
-                } /*else if (value instanceof org.json.fh.JSONArray) {
-                    result.putArray(key, value);
-                }*/ else {
+                    if (value instanceof org.json.fh.JSONArray) {
+                        result.putArray(key, toWritableArray((org.json.fh.JSONArray) value));
+                    } else {
+                        result.putMap(key, toWritableMap((org.json.fh.JSONObject) value));
+                    }
+                } else {
                     result.putString(key, value.toString());
                 }
             } else {
                 result.putNull(key);
+            }
+        }
+
+        return result;
+    }
+
+    public static WritableArray toWritableArray(org.json.fh.JSONArray jsonArray) throws JSONException {
+        WritableArray result = Arguments.createArray();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Object value =  jsonArray.get(i);
+            if (value != null) {
+                if (value instanceof Boolean) {
+                    result.pushBoolean((Boolean) value);
+                } else if (value instanceof Integer) {
+                    result.pushInt((Integer) value);
+                } else if (value instanceof Double) {
+                    result.pushDouble((Double) value);
+                } else if (value instanceof Float) {
+                    result.pushDouble((Double) value);
+                } else if (value instanceof String) {
+                    result.pushString((String) value);
+                } else if (value instanceof org.json.fh.JSONObject) {
+                    if (value instanceof org.json.fh.JSONArray) {
+                        result.pushArray(toWritableArray((org.json.fh.JSONArray) value));
+                    } else {
+                        result.pushMap(toWritableMap((org.json.fh.JSONObject) value));
+                    }
+                }  else {
+                    result.pushString(value.toString());
+                }
             }
         }
 
