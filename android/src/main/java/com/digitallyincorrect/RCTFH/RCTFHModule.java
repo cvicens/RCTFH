@@ -109,6 +109,31 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void getCloudHost(final Promise promise){
+        Log.i(FH_CLOUD_TAG, RCTFHModule.class.getCanonicalName());
+
+        try {
+            promise.resolve(FH.getCloudHost());
+        } catch (Throwable e) {
+            Log.e(FH_CLOUD_TAG, e.getLocalizedMessage());
+            promise.reject("cloud_call_failed", e.getLocalizedMessage());
+        }
+    }
+
+
+    @ReactMethod
+    public void getFHParams(final Promise promise){
+        Log.i(FH_CLOUD_TAG, RCTFHModule.class.getCanonicalName());
+
+        try {
+            promise.resolve(MapUtil.toWritableMap(FH.getDefaultParams()));
+        } catch (Throwable e) {
+            Log.e(FH_CLOUD_TAG, e.getLocalizedMessage());
+            promise.reject("cloud_call_failed", e.getLocalizedMessage());
+        }
+    }
+
     // TODO  final ReadableArray headers
     @ReactMethod
     public void cloud(final ReadableMap options, final Promise promise){

@@ -1,23 +1,3 @@
-# React Native RHMAP (former Feedhenry) Wrapper (unofficial)
-
-**React Native Wrapper around Red Hat Mobile (former Feedhenry) SDK** is built to provide a RN App access to both **iOS** and **Android** to the Red Hat Mobile SDK.  You'll find all the information related to documentation of the both SDKs (iOS and Android) this module is based on:  
- * [Native iOS (Objectve-C) SDK](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-ios-objective-c)
- * [Native Android SDK](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-android)
-
-## Why a native bridge? Why not just JavaScript?
-As of today plain [JS SDK](http://feedhenry.org/fh-js-sdk/) is browser driven and hence not usable in React Native.
-
-## Is there a React Native template?
-Indeed, you can find it [here](https://github.com/cvicens/quickstart-react-native).
-
-## Contents
-  1. Create your React Native Project
-  2. Add 'rct-fh' dependency
-  3. Let's link the new module
-  4. Install RHMAP framework using
-  5. Create the RHMAP configuration file
-  6. Using the module
-
 ## Instructions for iOS
 
 ### 1. Create your React Native Project
