@@ -1,5 +1,16 @@
 ## Instructions for iOS
 
+## Local Environment setup
+You have to setup the following tools before you can perform the other steps.
+
+ * React Native CLI
+  * requires:
+    * NodeJS (>= 6.x)
+    * npm
+ * Xcode
+
+We suggest you follow the official [**React Native Getting Started Guide**](https://facebook.github.io/react-native/docs/getting-started.html) instructions to get it right!
+
 ### 1. Create your React Native Project
 Do it as usual, for example: ``$ react-native init Test001 ``
 
@@ -121,6 +132,10 @@ Pod installation complete! There is 1 dependency from the Podfile and 4 total po
 ```
 
 ### 5. Create the RHMAP iOS configuration file
+
+In order to communicate with RHMAP Cloud Apps you have to provide a configuration file specific for your target platform:
+ *[Server Connection setup for iOS](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-ios-objective-c#native-ios-objective-c-setup)
+
 Below you'll find an example of ``fhconfig.plist`` file.
 
 ```xml
@@ -160,7 +175,7 @@ Once inside the XCode workspace create a new file under the project node in the 
 Below you'll find an example of ``index.ios.js`` that uses our module ``rct-fh``. Please pay attention to the class name exported (Test001 in our example) and also to the name of the app registered in the last line (again Test001 in our example). For simplicity make the name of both the class and the component registered to be the name of the React Native application we used in **step #1** where we run ``react-native init <App Name>``.
 
 #### 6.1 Importing the module
-To import the module, just require 'rct-fh'.
+To import the module, just require 'rct-fh' (or the `rct-fh/RCTFH.ios` as explained [here](./README.md)).
 
 ```js
 var RCTFH = require('rct-fh');
@@ -180,7 +195,7 @@ RCTFH.prototype.cloud = async function (options) {
 ```
 
 #### 6.2 Init the module
-The function to initialize the module is: ``RCTFH.init()``. This function is asynchronous and as such we could use the keyword ``await`` to asynchronously await for the init process to finish (in the same fashion as ``then`` in a Promise). As you can see below, once the init process has ``resolved`` properly we get the ``result`` object. On the other hand if there is a problem while initializing the module the init process will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(init, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+The function to initialize the module is: ``RCTFH.init()``. This function is asynchronous and as such we could use the [keyword `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) to asynchronously await for the init process to finish (in the same fashion as ``then`` in a Promise). As you can see below, once the init process has ``resolved`` properly we get the ``result`` object. On the other hand if there is a problem while initializing the module the init process will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(init, resolver, rejecter) [RCTFH.m](./RCTFH.m).
 
 ```js
 try {

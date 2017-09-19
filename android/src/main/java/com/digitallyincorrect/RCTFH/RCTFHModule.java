@@ -32,6 +32,8 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
     private final static String FH_INIT_TAG = "FHInit";
     private final static String FH_CLOUD_TAG = "FHCloud";
     private final static String FH_AUTH_TAG = "FHAuth";
+    private final static String FH_CLOUD_HOST_TAG = "FHCloudHost";
+    private final static String FH_PARAMS_TAG = "FHParams";
 
     public RCTFHModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -111,12 +113,12 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getCloudHost(final Promise promise){
-        Log.i(FH_CLOUD_TAG, RCTFHModule.class.getCanonicalName());
+        Log.i(FH_CLOUD_HOST_TAG, RCTFHModule.class.getCanonicalName());
 
         try {
             promise.resolve(FH.getCloudHost());
         } catch (Throwable e) {
-            Log.e(FH_CLOUD_TAG, e.getLocalizedMessage());
+            Log.e(FH_CLOUD_HOST_TAG, e.getLocalizedMessage());
             promise.reject("cloud_call_failed", e.getLocalizedMessage());
         }
     }
@@ -124,12 +126,12 @@ public class RCTFHModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getFHParams(final Promise promise){
-        Log.i(FH_CLOUD_TAG, RCTFHModule.class.getCanonicalName());
+        Log.i(FH_PARAMS_TAG, RCTFHModule.class.getCanonicalName());
 
         try {
             promise.resolve(MapUtil.toWritableMap(FH.getDefaultParams()));
         } catch (Throwable e) {
-            Log.e(FH_CLOUD_TAG, e.getLocalizedMessage());
+            Log.e(FH_PARAMS_TAG, e.getLocalizedMessage());
             promise.reject("cloud_call_failed", e.getLocalizedMessage());
         }
     }

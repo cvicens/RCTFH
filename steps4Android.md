@@ -1,72 +1,110 @@
 ## Instructions for Android
 
+## Local Environment setup
+You have to setup the following tools before you can perform the other steps.
+
+ * React Native CLI
+  * requires:
+    * NodeJS (>= 6.x)
+    * npm
+ * Android SDK and emulator
+ * requires:
+   * Java Runtime
+   * Gradle
+
+We suggest you follow the official [**React Native Getting Started Guide**](https://facebook.github.io/react-native/docs/getting-started.html) instructions to get it right!
+
 ### 1. Create your React Native Project
 Do it as usual, for example: ``$ react-native init Test001 ``
 
 Next an example output of the previous command.
 
 ```shell
-$ react-native init HelloWorld
+react-native init HelloWorld
+This will walk you through creating a new React Native project in /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+Installing react-native...
+Consider installing yarn to make this faster: https://yarnpkg.com
+
+...
+
+Setting up new React Native app in /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+Installing React...
+HelloWorld@0.0.1 /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+└── react@16.0.0-alpha.12
+
+...
+
+To run your app on iOS:
+   cd /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+   react-native run-ios
+   - or -
+   Open ios/HelloWorld.xcodeproj in Xcode
+   Hit the Run button
+To run your app on Android:
+   cd /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+   Have an Android emulator running (quickest way to get started), or a device connected
+   react-native run-android
+
 
 ```
 
 ### 2. Add 'rct-fh' dependency
 Using npm: ``npm install rct-fh``
 
-Or using yarn ``yarn add rct-fh``
-
 Underneath the output using npm.
 
 ```shell
+cd HelloWorld
+
+npm install https://github.com/rafaeltuelho/RCTFH.git
+
+> rct-fh@0.0.18 postinstall /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld/node_modules/rct-fh
+> ./update-links.sh
+
+HelloWorld@0.0.1 /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+└── rct-fh@0.0.18  (git+https://github.com/rafaeltuelho/RCTFH.git#3326de4f0f9a3a2c31b4f4ce7b6695a8c687473f)
 
 ```
 
 ### 3. Let's link the new module
 To do so, let's use: ``react-native link`` as in the following test.
 
-```shell
-$ react-native link
-
-```
-
-### 4. Install RHMAP Android framework using Graddle
-Let's create a Podfile at ``./ios/Podfile``, change Test001 by the name of the React Native project us used with ``react-native init``.
+> See the [*Linking Libraries*](https://facebook.github.io/react-native/docs/linking-libraries-ios.html) doc page on React Native User Guide for more details on this step.
 
 ```shell
+react-native link                                           
+Scanning 574 folders for symlinks in /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld/node_modules (5ms)
+rnpm-install info Linking rct-fh android dependency
+rnpm-install info Android module rct-fh has been successfully linked
+rnpm-install info Linking rct-fh ios dependency
+rnpm-install info iOS module rct-fh has been successfully linked
 
 ```
-Now change dir to ``./android`` and run ``graddle install``
 
-You should get an output similar to this one.
+### 4. Create the RHMAP Android configuration file
 
-```
+In order to communicate with RHMAP Cloud Apps you have to provide a configuration file specific for your target platform:
+ * [Server Connection setup for Android](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-android#rhmap_server_connection_setup)
 
-```
-
-### 5. Create the RHMAP Android configuration file
-Below you'll find an example of ``fhconfig.plist`` file.
+Below you'll find an example of `fhconfig.properties` file.
 
 ```json
+host = https://<your rhmap sub-domain>.us.demos.redhatmobile.com
+appid = <appid copied from RHMAP Studio Client page>
+projectid = <projectid copied from RHMAP Studio project settings'  page>
+appkey = <appkey copied from RHMAP Studio Client page>
+connectiontag = 0.0.8
 ```
 
-To create it open the Android Studio workspace generated before (if you cannot find the workspace maybe you should go to the previous chapter and run ``graddle install``).
+For Android this file needs to be created under: `$RCT_PROJECT_HOME/android/app/src/main/assets/`.
+Create this file  using any text editor or your preferred IDE.
 
-```
-$ cd HelloWorld
-```
 
-Once inside the Andoird Studio workspace create a new file under the project node in the file inspector.
+### 5. Using the module
+Below you'll find an example of ``index.android.js`` that uses our module ``rct-fh``. Please pay attention to the class name exported (HelloWorld in our example) and also to the name of the app registered in the last line (again HelloWorld in our example). For simplicity make the name of both the class and the component registered to be the name of the React Native application we used in **step #1** where we run ``react-native init <App Name>``.
 
-1. Right click on the project icon in the file inspector and select 'New File'. Select 'Property list' as the file type.
-2. Give the file the following name ``fhconfig.json``
-3. It's time to copy the contents of the sample file above, to do so, right click the file and select 'Open As'→'Source Code'
-4. Paste the contents and edit the file to match your Cloud App where is running the sample 'hello' end point.
-
-### 6. Using the module
-Below you'll find an example of ``index.android.js`` that uses our module ``rct-fh``. Please pay attention to the class name exported (Test001 in our example) and also to the name of the app registered in the last line (again Test001 in our example). For simplicity make the name of both the class and the component registered to be the name of the React Native application we used in **step #1** where we run ``react-native init <App Name>``.
-
-#### 6.1 Importing the module
-To import the module, just require 'rct-fh'.
+#### 5.1 Importing the module
+To import the module, just require `rct-fh` (or the `rct-fh/RCTFH.android` as explained [here](./README.md)).
 
 ```js
 var RCTFH = require('rct-fh');
@@ -85,8 +123,8 @@ RCTFH.prototype.cloud = async function (options) {
 };
 ```
 
-#### 6.2 Init the module
-The function to initialize the module is: ``RCTFH.init()``. This function is asynchronous and as such we could use the keyword ``await`` to asynchronously await for the init process to finish (in the same fashion as ``then`` in a Promise). As you can see below, once the init process has ``resolved`` properly we get the ``result`` object. On the other hand if there is a problem while initializing the module the init process will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(init, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+#### 5.2 Init the module
+The function to initialize the module is: ``RCTFH.init()``. This function is asynchronous and as such we could use the [keyword `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) to asynchronously await for the init process to finish (in the same fashion as ``then`` in a Promise). As you can see below, once the init process has ``resolved`` properly we get the ``result`` object. On the other hand if there is a problem while initializing the module the init process will be ``rejected`` and hence the ``catch`` code will be fired.
 
 ```js
 try {
@@ -106,10 +144,10 @@ try {
 }
 ```
 
-#### 6.3 Authentication
+#### 5.3 Authentication
 Before we can use this function we need to have defined an authentication policy in RHMAP Studio. For more information about authentication policies please go to [RHMAP Auth Policies](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/product_features/product-features-administration-and-management#auth-policies).
 
-The function to trigger an authentication policy is: ``RCTFH.auth()``. This function is also asynchronous and as such we could use the keyword ``await`` to asynchronously await for the authentication process to finish. If the policy is invoked properly we will get a ``result`` object, if the credentials provided are correct the object will include a ``sessionToken`` attribute. On the other hand if there is a problem the function will be ``rejected`` and hence the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(auth, authPolicy, username, password, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+The function to trigger an authentication policy is: ``RCTFH.auth()``. This function is also asynchronous and as such we could use the [keyword `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) to asynchronously await for the authentication process to finish. If the policy is invoked properly we will get a ``result`` object, if the credentials provided are correct the object will include a ``sessionToken`` attribute. On the other hand if there is a problem the function will be ``rejected`` and hence the ``catch`` code will be fired.
 
 ```js
 try {
@@ -124,8 +162,8 @@ try {
 }
 ```
 
-#### 6.4 REST call, 'cloud' API
-The function to call a RESTful endpoint exposed in a FeedHendry Cloud App is: ``RCTFH.cloud(options)``. Again, this function is asynchronous and as such we could use the keyword ``await`` to asynchronously await for the cloud call process to finish. In the same fashion as the init call, once the cloud call has ``resolved`` properly we get the ``result`` object and if there is a problem the ``catch`` code will be fired. See method RCT\_REMAP\_METHOD(cloud, options, resolver, rejecter) [RCTFH.m](./RCTFH.m).
+#### 5.4 REST call, 'cloud' API
+The function to call a RESTful endpoint exposed in a FeedHendry Cloud App is: ``RCTFH.cloud(options)``. Again, this function is asynchronous and as such we could use the [keyword `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) to asynchronously await for the cloud call process to finish. In the same fashion as the init call, once the cloud call has ``resolved`` properly we get the ``result`` object and if there is a problem the ``catch`` code will be fired.
 
 As you can see, we are using a set options to use this function:
 
@@ -146,7 +184,7 @@ try {
   });
 
   if (result && result.msg)
-    this.setState({message: result.msg});
+    this.setState({message: result.msg + ' at ' + new Date(parseInt(result.timestamp)});
   else
     this.setState({message: JSON.stringify(result)});
 } catch (e) {
@@ -154,155 +192,69 @@ try {
 }
 ```
 
+A complete example code for Android platform is available [here](https://github.com/rafaeltuelho/quickstart-react-native/blob/master/index.android.js)
 
-#### index.android.js complete example code
+### 6 Running your app
+Finally you can execute and test your React Native app on your local environment.
 
-```js
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  Image
-} from 'react-native';
+If you have the Android SDK with and emulator on your local environment, start it up!
 
-var RCTFH = require('rct-fh');
+ * first start the React packager server
 
-export default class Test001 extends Component {
-   constructor(props) {
-    console.log('constructor()');
-    super(props);
-
-    this.state = {
-      message: 'Waiting...',
-      userInput: '',
-      init: false
-    };
-  }
-
-  componentDidMount () {
-    // Let's init RHMAP module after the component mounts
-    this.init();
-  }
-
-
-  sayHello = async () => {
-    console.log('sayHello');
-    try {
-      const result = await RCTFH.cloud({
-        "path": "/hello", //only the path part of the url, the host will be added automatically
-        "method": "GET", //all other HTTP methods are supported as well. For example, HEAD, DELETE, OPTIONS
-        "contentType": "application/json",
-        "data": { "hello": this.state.userInput}, //data to send to the server
-        "timeout": 25000 // timeout value specified in milliseconds. Default: 60000 (60s)
-      });
-
-      console.log('sayHello result', result);
-      if (result && result.msg)
-        this.setState({message: result.msg});
-      else
-        this.setState({message: JSON.stringify(result)});
-    } catch (e) {
-      this.setState({message: 'Error' + e});
-    }
-  }
-
-  init = async () => {
-      try {
-        this.setState({message: 'Initializing...'});
-        const result = await RCTFH.init();
-        console.log('init result', result);
-        this.setState({message: 'Ready'});
-
-        if (result === 'SUCCESS') {
-          console.log('SUCCESS');
-          this.setState({init: true});
-        } else {
-          console.error('Error');
-        }
-      } catch (e) {
-        console.error('Exception', e);
-      }  
-  }
-
-  updateUserInput = async (userInput) => {
-    this.setState({userInput: userInput});
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.h1}>
-          Feed Henry - React Native Template
-        </Text>
-        <TextInput key='2' style={styles.input} autoCapitalize = 'none'
-          onSubmitEditing={(event) => this.updateUserInput(event.nativeEvent.text)}
-          onEndEditing={(event) => this.updateUserInput(event.nativeEvent.text)}
-          placeholder='Enter Your Name Here'
-          placeholderTextColor='grey'
-        />
-
-        <Button style={styles.button}
-        disabled={!this.state.init}
-        onPress={this.sayHello}
-        title="Say Hello From The Cloud"
-        accessibilityLabel="Say Hello From The Cloud"
-        />
-
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
-        <Text style={styles.message}>
-        {this.state.message}
-        </Text>
-        </View>
-
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 23,
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-      margin: 30,
-      height: 36,
-      padding: 4,
-      fontSize: 18,
-      borderWidth: 1,
-      borderColor: 'black',
-      borderRadius: 8,
-      color: 'black'
-   },
-  h1: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  message: {
-    flex: 1,
-    height: 150,
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'grey',
-    borderWidth: 1,
-    borderColor: 'grey',
-  },
-});
-
-AppRegistry.registerComponent('Test001', () => Test001);
+run the following command on another terminal (inside your React Native project's root dir)
 ```
+npm start
+```
+
+something like this output should appears on your console:
+
+```
+> HelloWorld@0.0.1 start /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+> node node_modules/react-native/local-cli/cli.js start
+
+Scanning 574 folders for symlinks in /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld/node_modules (15ms)
+ ┌────────────────────────────────────────────────────────────────────────────┐
+ │  Running packager on port 8081.                                            │
+ │                                                                            │
+ │  Keep this packager running while developing on any JS projects. Feel      │
+ │  free to close this tab and run your own packager instance if you          │
+ │  prefer.                                                                   │
+ │                                                                            │
+ │  https://github.com/facebook/react-native                                  │
+ │                                                                            │
+ └────────────────────────────────────────────────────────────────────────────┘
+Looking for JS files in
+
+/home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld
+
+
+React packager ready.
+
+Loading dependency graph, done.
+```
+
+ * Then, run the following command on another terminal (inside your React Native project's root dir)
+
+```
+react-native run-android
+Scanning 574 folders for symlinks in /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld/node_modules (5ms)
+JS server already running.
+Building and installing the app on the device (cd android && ./gradlew installDebug)...
+Incremental java compilation is an incubating feature.
+
+...
+
+Installing APK 'app-debug.apk' on 'Nexus_5_API_23(AVD) - 6.0' for app:debug
+Installed on 1 device.
+
+BUILD SUCCESSFUL
+
+Total time: 5.372 secs
+Running /home/rsoares/opt/mobile/android-sdk-linux/platform-tools/adb -s emulator-5554 reverse tcp:8081 tcp:8081
+Starting the app on emulator-5554 (/home/rsoares/opt/mobile/android-sdk-linux/platform-tools/adb -s emulator-5554 shell am start -n com.helloworld/com.helloworld.MainActivity)...
+Starting: Intent { cmp=com.helloworld/.MainActivity }
+```
+
+If everything is ok you should see your app running on the emulator
+
+![Helloworld App running on Android emulator](screenshots/android-helloworld-rct-app-with-rctfh.png "Helloworld App running on Android emulator")
