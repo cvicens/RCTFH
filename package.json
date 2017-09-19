@@ -1,6 +1,6 @@
 {
   "name": "rct-fh",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cvicens/RCTFH.git"
@@ -13,8 +13,15 @@
     "Red Hat Mobile"
   ],
   "author": "Carlos Vicens",
+  "contributors": [
+    {
+      "name": "Rafael T. C. Soares",
+      "email": "rafaelcba@gmail.com"
+    }
+  ],
   "scripts": {
     "postinstall": "./update-links.sh"
   },
+  "main": "index.js",
   "license": "mit"
 }

@@ -21,13 +21,8 @@ public class RCTFHPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
 
         modules.add(new RCTFHModule(reactContext));
-    
-        return modules;
-    }
 
-    @Override
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return Collections.emptyList();
+        return modules;
     }
 
     @Override
