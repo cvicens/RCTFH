@@ -134,7 +134,7 @@ Pod installation complete! There is 1 dependency from the Podfile and 4 total po
 ### 5. Create the RHMAP iOS configuration file
 
 In order to communicate with RHMAP Cloud Apps you have to provide a configuration file specific for your target platform:
- *[Server Connection setup for iOS](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-ios-objective-c#native-ios-objective-c-setup)
+ * [Server Connection setup for iOS](https://access.redhat.com/documentation/en-us/red_hat_mobile_application_platform_hosted/3/html/client_sdk/native-ios-objective-c#native-ios-objective-c-setup)
 
 Below you'll find an example of ``fhconfig.plist`` file.
 

@@ -49,14 +49,14 @@ To run your app on Android:
 ```
 
 ### 2. Add 'rct-fh' dependency
-Using npm: ``npm install rct-fh``
+Using npm: ``npm install rct-fh --save``
 
 Underneath the output using npm.
 
 ```shell
 cd HelloWorld
 
-npm install https://github.com/rafaeltuelho/RCTFH.git
+npm install https://github.com/rafaeltuelho/RCTFH.git --save
 
 > rct-fh@0.0.18 postinstall /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native/rct-fh-poc/HelloWorld/node_modules/rct-fh
 > ./update-links.sh
@@ -65,6 +65,8 @@ HelloWorld@0.0.1 /home/rsoares/Workshops/RH-MAP/projects/samples/reactive-native
 └── rct-fh@0.0.18  (git+https://github.com/rafaeltuelho/RCTFH.git#3326de4f0f9a3a2c31b4f4ce7b6695a8c687473f)
 
 ```
+
+> note the `--save` flag on `npm install` command! This is important because on next step `react-native link` uses the dependencies declared on `packages.json` file.
 
 ### 3. Let's link the new module
 To do so, let's use: ``react-native link`` as in the following test.
