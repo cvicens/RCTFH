@@ -12,7 +12,7 @@ var RCTFH = {
     return await FH.init();
   },
   getCloudUrl: async function() {
-    console.warn('Not yet implemented for Android.');
+    console.warn('Function getCloudUrl not yet implemented for Android');
   },
   auth: async function(authPolicy, username, password) { 
     return await FH.auth(authPolicy, username, password);
