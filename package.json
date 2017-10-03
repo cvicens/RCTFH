@@ -20,7 +20,6 @@
     }
   ],
   "scripts": {
-    "postinstall": "./update-links.sh"
   },
   "main": "index.js",
   "license": "mit"
