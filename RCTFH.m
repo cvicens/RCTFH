@@ -31,6 +31,34 @@ RCT_EXPORT_METHOD(init:(RCTResponseSenderBlock)successCallback
     successCallback(@[@"init method called"]);
 }
 
+RCT_REMAP_METHOD(getCloudUrl,
+                 getcloudurl_resolver:(RCTPromiseResolveBlock)resolve
+                 getcloudurl_rejecter:(RCTPromiseRejectBlock)reject) {
+    NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    
+    @try {
+        NSString *cloudAppHost = [FH getCloudHost];
+        NSLog(@"getCloudUrl: %@", cloudAppHost);
+        resolve(@[cloudAppHost]);
+    }
+    @catch ( NSException *e ) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [e reason]];
+        NSLog(@"getCloudUrl call exception. Response = %@", errorMessage);
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"getCloudHost failed.", nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please verify init process succeded", nil)
+                                   };
+        NSError *error = [NSError errorWithDomain:@"com.redhat.mobile.rctfh"
+                                             code:-1
+                                         userInfo:userInfo];
+        reject(@"getcloudurl_call_failed", errorMessage, error);
+    }
+    @finally {
+        NSLog(@"getCloudUrl finally area reached");
+    }
+}
+
 RCT_EXPORT_METHOD(  cloud: (NSDictionary *) options
                   success: (RCTResponseSenderBlock) successCallback
                     error: (RCTResponseSenderBlock) errorCallback) {
@@ -100,8 +128,8 @@ RCT_EXPORT_METHOD(  cloud: (NSDictionary *) options
 }
 
 RCT_REMAP_METHOD(init,
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
+                 init_resolver:(RCTPromiseResolveBlock)resolve
+                 init_rejecter:(RCTPromiseRejectBlock)reject)
 {
     
     NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -136,8 +164,8 @@ RCT_REMAP_METHOD(auth,
                  authPolicy: (NSString*) authPolicy
                  username: (NSString*) username
                  password: (NSString*) password
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
+                 auth_resolver:(RCTPromiseResolveBlock)resolve
+                 auth_rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSLog(@"auth call with promise %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     
@@ -225,8 +253,8 @@ RCT_REMAP_METHOD(auth,
 
 RCT_REMAP_METHOD(cloud,
                  options: (NSDictionary *) options
-                 resolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
+                 cloud_resolver:(RCTPromiseResolveBlock)resolve
+                 cloud_rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSLog(@"cloud call with promise %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     NSLog(@"options: %@", options);
