@@ -20,7 +20,7 @@
     }
   ],
   "scripts": {
-      "postinstall": "postinstall.js"
+      "postinstall": "node scripts/postinstall.js"
   },
   "main": "index.js",
   "license": "mit"
