@@ -1,6 +1,6 @@
 {
   "name": "rct-fh",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cvicens/RCTFH.git"
@@ -20,7 +20,7 @@
     }
   ],
   "scripts": {
-      "postinstall": "./postinstall.js"
+      "postinstall": "postinstall.js"
   },
   "main": "index.js",
   "license": "mit"
