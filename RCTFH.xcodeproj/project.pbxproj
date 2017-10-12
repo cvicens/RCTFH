@@ -8,13 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		13BE3DEE1AC21097009241FE /* RCTFH.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BE3DED1AC21097009241FE /* RCTFH.m */; };
-		2A473FF16910EC72ADD56A87 /* libPods-RCTFH.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85056B131AE0DD4BDEEA1770 /* libPods-RCTFH.a */; };
 		49D31A2C1F8B0E45007E7076 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D31A2B1F8B0E44007E7076 /* libz.1.dylib */; };
 		49D31A2E1F8B0E59007E7076 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D31A2D1F8B0E58007E7076 /* libxml2.2.dylib */; };
 		5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */; };
 		5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */; };
 		5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */; };
-		E15FF6B94854E542832C9C9B /* libPods-RCTFH.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2349A2F8D6EEEFAFC670188 /* libPods-RCTFH.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,8 +38,6 @@
 		5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		85056B131AE0DD4BDEEA1770 /* libPods-RCTFH.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RCTFH.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2349A2F8D6EEEFAFC670188 /* libPods-RCTFH.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-RCTFH.a"; path = "../../../../Users/rafaeltuelho/Library/Developer/Xcode/DerivedData/RCTFH-dqacxtuzqjfrszepdjpwygbslcum/Build/Products/Debug-iphoneos/libPods-RCTFH.a"; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +50,6 @@
 				5F586F9D1E0D3F4900BD401D /* MobileCoreServices.framework in Frameworks */,
 				5F586F9B1E0D3F4000BD401D /* CFNetwork.framework in Frameworks */,
 				5F586F991E0D3F3A00BD401D /* SystemConfiguration.framework in Frameworks */,
-				E15FF6B94854E542832C9C9B /* libPods-RCTFH.a in Frameworks */,
-				2A473FF16910EC72ADD56A87 /* libPods-RCTFH.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,8 +92,6 @@
 				5F586F9C1E0D3F4900BD401D /* MobileCoreServices.framework */,
 				5F586F9A1E0D3F4000BD401D /* CFNetwork.framework */,
 				5F586F981E0D3F3A00BD401D /* SystemConfiguration.framework */,
-				D2349A2F8D6EEEFAFC670188 /* libPods-RCTFH.a */,
-				85056B131AE0DD4BDEEA1770 /* libPods-RCTFH.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -305,7 +297,15 @@
 					"$(SRCROOT)/../../node_modules/react-native/React/**",
 					/usr/lib/libxml2.2.dylib,
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include $(SRCROOT)/../React/** $(SRCROOT)/../../React/** $(SRCROOT)/../node_modules/react-native/React/** $(SRCROOT)/../../node_modules/react-native/React/** /usr/lib/**";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../React/**",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"/usr/lib/**",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RCTFH;

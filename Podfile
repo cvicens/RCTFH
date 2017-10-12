@@ -34,13 +34,13 @@ target 'RCTFH' do
 
 end
 
-post_install do |installer_representation|
-  puts "\n\nexecuting post_install task... #{installer_representation}"
-  installer_representation.pods_project.targets.each do |target|
-      #puts "\tprocessing target #{target}"
-      target.build_configurations.each do |config|
-            #printf("\n xcode project config: %s.\n", config)
-            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
-      end
-  end
-end
+#post_install do |installer_representation|
+#  puts "\n\nexecuting post_install task... #{installer_representation}"
+#  installer_representation.pods_project.targets.each do |target|
+#      #puts "\tprocessing target #{target}"
+#      target.build_configurations.each do |config|
+#            #printf("\n xcode project config: %s.\n", config)
+#            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+#      end
+#  end
+#end
